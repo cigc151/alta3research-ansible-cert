@@ -1,0 +1,7 @@
+---
+- name: Challenge using roles
+  hosts: planetexpress
+  gather_facts: yes
+
+  roles:
+    - host_details

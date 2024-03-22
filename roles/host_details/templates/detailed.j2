@@ -1,0 +1,18 @@
+Hostname: {{ ansible_hostname }}
+IP Address: {{ ansible_default_ipv4.address }}
+Operating System: {{ ansible_distribution }} {{ ansible_distribution_version }}
+Operating System Family: {{ ansible_os_family }}
+Kernel: {{ ansible_kernel }}
+
+CPU:
+  Architecture: {{ ansible_architecture }}
+  Cores: {{ ansible_processor_cores }}
+  VCPUs: {{ ansible_processor_vcpus }}
+  Processor: {{ ansible_processor[0] }}
+
+
+Network Interfaces:
+{% for interface in ansible_interfaces %}
+  - Interface: {{ interface }}
+    IPv4 Address: {{ hostvars[inventory_hostname]['ansible_' + interface]['ipv4']['address'] }}
+{% endfor %}
