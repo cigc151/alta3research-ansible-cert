@@ -2,6 +2,8 @@
 - name: Challenge using roles
   hosts: planetexpress
   gather_facts: yes
-
+  
+  vars:
+    engineer: 'Carlos Gonzalez'
   roles:
     - host_details
