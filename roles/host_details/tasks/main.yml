@@ -1,11 +1,16 @@
 ---
 # tasks file for host_details
-
+    # this task displays the fact keys gathered from the gather_facts
+    # a tag named show_facts created in case you want include/exclude
+    # the task from the execution of the playbook
     - name: show fact keys
       debug:
         msg: "{{ ansible_facts.keys() }}"
       tags:
         - show_facts
+
+    # Using our basic.j2 template we render a new txt file which will be filled with the info gathered
+    # using gather_facts
     - name: Create basic information file from template
       template:
         src: basic.j2
@@ -13,6 +18,8 @@
       tags:
         - basic_info
 
+    # Using our detailed.j2 template we render a new txt file which will be filled with the info gathered
+    # using gather_facts adding new variables 
     - name: Create detailed information file from template
       template:
         src: detailed.j2

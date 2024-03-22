@@ -1,9 +1,17 @@
 ---
+
+# this is the main playbook, it will use the tasks defined within the role host_details
+# in order to get some information from the hosts defined within the inventory
+
 - name: Challenge using roles
   hosts: planetexpress
   gather_facts: yes
-  
+
+  # this variable is used to add the assigned engineer 
+  # in the jinja templates  
   vars:
     engineer: 'Carlos Gonzalez'
+  
+  #Using the role host_details
   roles:
     - host_details
