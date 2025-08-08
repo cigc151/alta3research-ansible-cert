@@ -1,0 +1,35 @@
+name: Ansible Lint Check
+
+on:
+  push:
+    branches:
+      - main # O la rama principal de tu repositorio, por ejemplo, 'master'
+      - develop # Puedes añadir otras ramas si las usas
+
+  pull_request:
+    branches:
+      - main # O la rama principal de tu repositorio
+      - develop # Puedes añadir otras ramas si las usas
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest # Ejecuta el job en un entorno Ubuntu
+
+    steps:
+      - name: Checkout del repositorio
+        uses: actions/checkout@v4 # Clona tu repositorio para que el linter pueda acceder a tus archivos Ansible
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11' # Puedes especificar una versión de Python más específica si lo necesitas, por ejemplo, '3.9'
+
+      - name: Instalar Ansible y Ansible Lint
+        run: |
+          python -m pip install --upgrade pip
+          pip install ansible ansible-lint # Instala Ansible y ansible-lint
+
+      - name: Ejecutar Ansible Lint con perfil de producción
+        run: |
+          ansible-lint --profile=production # Ejecuta el comando ansible-lint
+        # Si ansible-lint encuentra errores, este paso fallará, y por lo tanto, el workflow fallará.
